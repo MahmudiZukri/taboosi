@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "124024031028",
+    "project_id": "taboosi",
+    "storage_bucket": "taboosi.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:124024031028:android:edf4638ca75379368c8761",
+        "android_client_info": {
+          "package_name": "com.mahmudizukri.taboosi"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "124024031028-bqk1t72vp39ecm2sop72v2a2asbel00h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCIPSCGomeyM8aIKVRSnfRunfyePB91_Hc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "124024031028-bqk1t72vp39ecm2sop72v2a2asbel00h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
