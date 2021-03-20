@@ -41,11 +41,13 @@ class SplashPage extends StatelessWidget {
                       width: MediaQuery.of(context).size.width > 600
                           ? 210
                           : MediaQuery.of(context).size.width / 2,
-                      child: RaisedButton(
-                        color: turquoiseColor,
-                        elevation: 0,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(17)),
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          primary: turquoiseColor,
+                          elevation: 0,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(17)),
+                        ),
                         onPressed: () {
                           Navigator.push(
                               context,

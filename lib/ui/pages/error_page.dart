@@ -23,11 +23,8 @@ class ErrorPage extends StatelessWidget {
               Container(
                   height: 50,
                   width: 210,
-                  child: RaisedButton(
-                      elevation: 0,
-                      color: turquoiseColor,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(17)),
+                  child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(),
                       onPressed: () {
                         // Navigator.push(
                         //     context,

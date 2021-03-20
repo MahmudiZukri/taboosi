@@ -171,7 +171,7 @@ class _AddPageState extends State<AddPage> {
                   ),
                   Text('Note: Foto yang pertama akan menjadi thumbnail',
                       style: greyTextFont.copyWith(
-                          fontSize: 10, color: Colors.grey[300])),
+                          fontSize: 10, color: Colors.grey[350])),
                   SizedBox(height: 10),
                   //NOTE: UPLOAD FOTO
                   Container(
@@ -242,11 +242,13 @@ class _AddPageState extends State<AddPage> {
                                       backgroundColor: turquoiseColor),
                                 ),
                               )
-                            : RaisedButton(
-                                color: turquoiseColor,
-                                elevation: 0,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(17)),
+                            : ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  primary: turquoiseColor,
+                                  elevation: 0,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(17)),
+                                ),
                                 onPressed: () async {
                                   if (!(nameController.text.trim() != '' &&
                                       cityController.text.trim() != '' &&

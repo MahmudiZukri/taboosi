@@ -48,7 +48,7 @@ class _DetailPageState extends State<DetailPage> {
       body: SafeArea(
           child: Stack(
         children: [
-          //NOTE: gadget IMAGE
+          //NOTE: GADGET IMAGE
           Align(
               alignment: Alignment.topCenter,
               child: Image.network(widget.gadget.photos[0],
@@ -308,11 +308,13 @@ class _DetailPageState extends State<DetailPage> {
                       child: Container(
                           height: 50,
                           width: MediaQuery.of(context).size.height - 2 * edge,
-                          child: RaisedButton(
-                              elevation: 0,
-                              color: turquoiseColor,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(17)),
+                          child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                elevation: 0,
+                                primary: turquoiseColor,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(17)),
+                              ),
                               onPressed: () {
                                 _confirmCall();
                               },
