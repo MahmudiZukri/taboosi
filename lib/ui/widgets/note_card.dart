@@ -4,7 +4,7 @@ class NoteCard extends StatelessWidget {
   final Note note;
   final Function onTap;
 
-  NoteCard(this.note, {this.onTap});
+  NoteCard(this.note, {required this.onTap});
 
   @override
   Widget build(BuildContext context) {

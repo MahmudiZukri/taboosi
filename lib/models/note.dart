@@ -6,5 +6,9 @@ class Note {
   String noteImageURL;
   String desc;
 
-  Note({this.id, this.name, this.noteImageURL, this.desc});
+  Note(
+      {required this.id,
+      required this.name,
+      required this.noteImageURL,
+      required this.desc});
 }

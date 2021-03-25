@@ -3,19 +3,19 @@ part of 'models.dart';
 class Gadget {
   int price;
   String name;
-  String city;
+  String? city;
   String phone;
-  String mapURL;
+  String? mapURL;
   String address;
   String battery;
   String screen;
   String camera;
   String chipset;
   String chipsetSeries;
-  String desc;
+  String? desc;
   String seller;
-  List photos;
-  String gadgetID;
+  List? photos;
+  String? gadgetID;
 
   // int rating;
 
@@ -31,24 +31,43 @@ class Gadget {
   //TODO: Button 'Hubungi Penjual' kita bikin ada 3 pilihan, yaitu Dapatkan Nomor, Hubungi lewat WA, Kembali. DIPERTIMBANGKAN
 
   Gadget({
-    this.price,
-    this.name,
+    required this.price,
+    required this.name,
     this.city,
-    this.phone,
+    required this.phone,
     this.mapURL,
-    this.address,
-    this.battery,
-    this.screen,
-    this.camera,
-    this.chipset,
-    this.chipsetSeries,
+    required this.address,
+    required this.battery,
+    required this.screen,
+    required this.camera,
+    required this.chipset,
+    required this.chipsetSeries,
     this.desc,
-    this.seller,
+    required this.seller,
     this.photos,
     this.gadgetID,
 
     // this.rating,
   });
+
+  factory Gadget.fromJson(json) {
+    return Gadget(
+        price: json['price'],
+        name: json['name'],
+        city: json['city'],
+        phone: json['phone'],
+        mapURL: json['map_url'],
+        address: json['address'],
+        battery: json['battery'],
+        screen: json['screen'],
+        camera: json['camera'],
+        chipset: json['chipset'],
+        chipsetSeries: json['chipsetSeries'],
+        desc: json['desc'],
+        seller: json['seller'],
+        photos: json['photos'],
+        gadgetID: json['gadget_id']);
+  }
 
   // factory Gadget.fromJson(Map<String, dynamic> json) {
   //   return Gadget(

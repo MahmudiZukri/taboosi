@@ -7,7 +7,10 @@ class BottomNavbarItem extends StatelessWidget {
   final double iconSize;
 
   BottomNavbarItem(
-      {this.iconURL, this.onTap, this.isActive = false, this.iconSize = 26});
+      {required this.iconURL,
+      required this.onTap,
+      this.isActive = false,
+      this.iconSize = 26});
   @override
   Widget build(BuildContext context) {
     return GestureDetector(

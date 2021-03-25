@@ -6,14 +6,15 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int selectedItem;
+  // int selectedItem;
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: () {
+      onWillPop: () async {
         Navigator.push(
             context, MaterialPageRoute(builder: (builder) => SplashPage()));
-        return;
+
+        return true;
       },
       child: Scaffold(
         backgroundColor: backgroundColor,
@@ -88,13 +89,14 @@ class _HomePageState extends State<HomePage> {
                       SizedBox(height: 16),
 
                       FutureBuilder(
-                          future: GadgetServices.getGadget(),
-                          builder: (context, snapshot) {
+                          future: GadgetServices.getGadgets(),
+                          builder:
+                              (context, AsyncSnapshot<List<Gadget>> snapshot) {
                             if (snapshot.hasData) {
-                              List<Gadget> data = snapshot.data;
+                              List<Gadget>? data = snapshot.data;
 
                               return Column(
-                                children: data
+                                children: data!
                                     .map((e) => Container(
                                         margin: EdgeInsets.only(bottom: 30),
                                         child: GadgetCard(e)))

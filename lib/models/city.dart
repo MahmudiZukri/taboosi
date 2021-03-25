@@ -6,5 +6,9 @@ class City {
   String cityImageURL;
   bool isAvailable;
 
-  City({this.id, this.name, this.cityImageURL, this.isAvailable = false});
+  City(
+      {required this.id,
+      required this.name,
+      required this.cityImageURL,
+      this.isAvailable = false});
 }

@@ -82,11 +82,13 @@ class _AddPageState extends State<AddPage> {
                 children: [
                   TextfieldCard(
                     controller: nameController,
+                    width: MediaQuery.of(context).size.width - 2 * edge,
                     labelText: 'Nama Produk',
                     hintText: 'e.g. Xiaomi Mi 11 6/64',
                   ),
                   TextfieldCard(
                       controller: priceController,
+                      width: MediaQuery.of(context).size.width - 2 * edge,
                       labelText: 'Harga Produk',
                       // onChanged: (text) {
                       //   String temp = '';
@@ -105,16 +107,19 @@ class _AddPageState extends State<AddPage> {
                       inputNumber: true),
                   TextfieldCard(
                       controller: batteryController,
+                      width: MediaQuery.of(context).size.width - 2 * edge,
                       labelText: 'Daya Baterai (mAh)',
                       hintText: 'e.g. 4000',
                       inputNumber: true),
                   TextfieldCard(
                       controller: screenController,
+                      width: MediaQuery.of(context).size.width - 2 * edge,
                       labelText: 'Ukuran Layar (inch)',
                       hintText: 'e.g. 6,53',
                       inputNumber: true),
                   TextfieldCard(
                       controller: cameraController,
+                      width: MediaQuery.of(context).size.width - 2 * edge,
                       labelText: 'Resolusi Kamera (MP)',
                       hintText: 'e.g. 48',
                       inputNumber: true),
@@ -141,27 +146,32 @@ class _AddPageState extends State<AddPage> {
                   ),
                   TextfieldCard(
                     controller: descController,
+                    width: MediaQuery.of(context).size.width - 2 * edge,
                     height: 100,
                     maxLines: 3,
                     labelText: 'Keterangan Tambahan untuk Produk',
                   ),
                   TextfieldCard(
                     controller: sellerController,
+                    width: MediaQuery.of(context).size.width - 2 * edge,
                     labelText: 'Nama Penjual',
                   ),
                   TextfieldCard(
                     controller: phoneController,
+                    width: MediaQuery.of(context).size.width - 2 * edge,
                     labelText: 'No. Handphone',
                     hintText: 'e.g. 0821********',
                     inputNumber: true,
                   ),
                   TextfieldCard(
                     controller: addressController,
+                    width: MediaQuery.of(context).size.width - 2 * edge,
                     labelText: 'Alamat COD',
                     hintText: 'e.g. Jl. Sutan Soripada Mulia ...',
                   ),
                   TextfieldCard(
                     controller: cityController,
+                    width: MediaQuery.of(context).size.width - 2 * edge,
                     labelText: 'Kota',
                     hintText: 'e.g. Padangsidimpuan',
                   ),
@@ -301,9 +311,7 @@ class _AddPageState extends State<AddPage> {
                                             chipsetSeries:
                                                 chipsetSeriesController.text,
                                             desc: descController.text,
-                                            seller: sellerController.text
-                                            // seller: sellerController.text,
-                                            ),
+                                            seller: sellerController.text),
                                         photos: imagesURL);
 
                                     priceController.text = '';
@@ -347,13 +355,14 @@ class _AddPageState extends State<AddPage> {
   }
 
   chooseImage() async {
-    final pickedFile = await picker.getImage(source: ImageSource.gallery);
+    final PickedFile? pickedFile =
+        await picker.getImage(source: ImageSource.gallery);
 
     if (pickedFile == null) {
       await retrieveLostData();
     } else {
       setState(() {
-        _images.add(File(pickedFile?.path));
+        _images.add(File(pickedFile.path));
       });
     }
   }
@@ -366,7 +375,7 @@ class _AddPageState extends State<AddPage> {
     }
     if (response.file != null) {
       setState(() {
-        _images.add(File(response.file.path));
+        _images.add(File(response.file!.path));
       });
     } else {
       print(response.file);
@@ -374,21 +383,47 @@ class _AddPageState extends State<AddPage> {
   }
 
   Future uploadImage() async {
-    List<String> imagetemps = [];
+    // Kodingan lama
+    // List<String> imagetemps = [];
+
+    // for (var img in _images) {
+    //   String fileName = basename(img.path);
+    //   StorageReference ref = FirebaseStorage.instance.ref().child(fileName);
+
+    //   StorageUploadTask task = ref.putFile(img);
+
+    //   StorageTaskSnapshot snapshot = await task.onComplete;
+
+    //   await snapshot.ref
+    //       .getDownloadURL()
+    //       .then((value) => imagetemps.add(value));
+    // }
+
+    //Dsini kita langsung masukin nilai imageTemps ke imagesURL yang bakal dipanggil di method addGadget
+    // imagesURL = imagetemps;
+
+    List<String> imagesTemp = [];
 
     for (var img in _images) {
       String fileName = basename(img.path);
-      StorageReference ref = FirebaseStorage.instance.ref().child(fileName);
 
-      StorageUploadTask task = ref.putFile(img);
+      firebase_storage.Reference ref =
+          firebase_storage.FirebaseStorage.instance.ref(fileName);
 
-      StorageTaskSnapshot snapshot = await task.onComplete;
+      // Kita ikuti aja kodingan pak Erico di BWA Flutix (kayak diatas) tapi dengan versi terbaru
+      // Kita coba ngikutin yang di dokumentasi
 
-      await snapshot.ref
-          .getDownloadURL()
-          .then((value) => imagetemps.add(value));
+      /* Kita gatau ini kenapa malah manggil firebase_core, pas kita bikin firebase_storage juga ga error tapi
+      kita ikutin yang di dokumentasi aja */
+
+      try {
+        await ref.putFile(img).then((value) =>
+            value.ref.getDownloadURL().then((url) => imagesTemp.add(url)));
+      } on firebase_core.FirebaseException catch (e) {
+        print('ERROR: $e');
+      }
     }
 
-    imagesURL = imagetemps;
+    imagesURL = imagesTemp;
   }
 }

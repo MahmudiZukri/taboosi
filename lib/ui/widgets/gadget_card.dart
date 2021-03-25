@@ -24,7 +24,7 @@ class GadgetCard extends StatelessWidget {
                   child: Stack(
                     children: [
                       Image.network(
-                        gadget.photos[0],
+                        gadget.photos![0],
                         height: 110,
                         width: 130,
                         fit: BoxFit.cover,
@@ -78,7 +78,7 @@ class GadgetCard extends StatelessWidget {
                     ),
                     Spacer(),
                     Text(
-                      gadget.city,
+                      gadget.city!,
                       style: greyTextFont,
                       maxLines: 1,
                       overflow: TextOverflow.clip,

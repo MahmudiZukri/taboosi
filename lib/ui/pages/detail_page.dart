@@ -51,7 +51,7 @@ class _DetailPageState extends State<DetailPage> {
           //NOTE: GADGET IMAGE
           Align(
               alignment: Alignment.topCenter,
-              child: Image.network(widget.gadget.photos[0],
+              child: Image.network(widget.gadget.photos![0],
                   height: 350, fit: BoxFit.cover)),
           ListView(
             children: [
@@ -201,7 +201,7 @@ class _DetailPageState extends State<DetailPage> {
                     ),
                     SizedBox(height: 12),
                     Text(
-                      widget.gadget.desc,
+                      widget.gadget.desc!,
                       style: greyTextFont,
                       textAlign: TextAlign.justify,
                     ),
@@ -221,14 +221,14 @@ class _DetailPageState extends State<DetailPage> {
                 color: Colors.white,
                 child: ListView(
                     scrollDirection: Axis.horizontal,
-                    children: widget.gadget.photos.map((e) {
+                    children: widget.gadget.photos!.map((e) {
                       index++;
 
                       return Container(
                         padding: EdgeInsets.only(
                             left: index == 1 ? 24 : 18,
                             right:
-                                index == widget.gadget.photos.length ? 24 : 0),
+                                index == widget.gadget.photos!.length ? 24 : 0),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(16),
                           child: GestureDetector(
@@ -237,7 +237,7 @@ class _DetailPageState extends State<DetailPage> {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) => DetailPhotoPage(
-                                          widget.gadget.photos)));
+                                          widget.gadget.photos!)));
                             },
                             child: Image.network(
                               e,
@@ -278,7 +278,7 @@ class _DetailPageState extends State<DetailPage> {
                               SizedBox(height: 2),
                               Container(
                                 child: Text(
-                                  widget.gadget.city,
+                                  widget.gadget.city!,
                                   style: greyTextFont,
                                   maxLines: 1,
                                   overflow: TextOverflow.clip,
@@ -289,7 +289,7 @@ class _DetailPageState extends State<DetailPage> {
                         ),
                         GestureDetector(
                             onTap: () {
-                              launchURL(context, widget.gadget.mapURL);
+                              launchURL(context, widget.gadget.mapURL!);
                             },
                             child:
                                 Image.asset('assets/btn_map.png', height: 40))
