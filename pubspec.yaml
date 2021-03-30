@@ -23,17 +23,15 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  another_flushbar: ^1.10.17
   carousel_slider: ^3.0.0
   cloud_firestore: ^1.0.1
   cupertino_icons: ^1.0.0
   firebase_core: ^1.0.1
   firebase_storage: ^8.0.0
-  flushbar: ^1.10.0
   google_fonts: ^2.0.0
   image_picker: ^0.7.3
   intl: ^0.17.0
-  shared_preferences: ^2.0.5
+  shimmer: ^1.1.2
   url_launcher: ^6.0.2
 
 dev_dependencies:

@@ -136,7 +136,7 @@ class _AddPageState extends State<AddPage> {
                       SizedBox(width: 15),
                       TextfieldCard(
                           controller: chipsetSeriesController,
-                          labelText: 'Chipset series',
+                          labelText: 'Seri chipset',
                           hintText: 'e.g. Helio G90T',
                           width: (MediaQuery.of(context).size.width -
                                   2 * edge -
@@ -163,10 +163,14 @@ class _AddPageState extends State<AddPage> {
                     hintText: 'e.g. 0821********',
                     inputNumber: true,
                   ),
+                  Text(
+                    'Lokasi COD',
+                    style: greyTextFont,
+                  ),
                   TextfieldCard(
                     controller: addressController,
                     width: MediaQuery.of(context).size.width - 2 * edge,
-                    labelText: 'Alamat COD',
+                    labelText: 'Alamat',
                     hintText: 'e.g. Jl. Sutan Soripada Mulia ...',
                   ),
                   TextfieldCard(
@@ -207,18 +211,36 @@ class _AddPageState extends State<AddPage> {
                                               chooseImage();
                                             }
                                           : () {
-                                              Flushbar(
-                                                  duration: Duration(
-                                                      milliseconds: 1500),
-                                                  flushbarPosition:
-                                                      FlushbarPosition.TOP,
+                                              // Flushbar(
+                                              //     duration: Duration(
+                                              //         milliseconds: 1500),
+                                              //     flushbarPosition:
+                                              //         FlushbarPosition.TOP,
+                                              //     backgroundColor:
+                                              //         Colors.red[400],
+                                              //     icon: Icon(Icons.dangerous,
+                                              //         color: Colors.white),
+                                              //     message:
+                                              //         'Upload foto produk masksimal 8')
+                                              //   ..show(context);
+
+                                              final snackBar = SnackBar(
                                                   backgroundColor:
                                                       Colors.red[400],
-                                                  icon: Icon(Icons.dangerous,
-                                                      color: Colors.white),
-                                                  message:
-                                                      'Upload foto produk masksimal 8')
-                                                ..show(context);
+                                                  duration: Duration(
+                                                      milliseconds: 1500),
+                                                  content: Row(
+                                                    children: [
+                                                      Icon(Icons.dangerous,
+                                                          color: whiteColor),
+                                                      SizedBox(width: 8),
+                                                      Text(
+                                                          'Upload foto produk maksimal 8')
+                                                    ],
+                                                  ));
+
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(snackBar);
                                             }))
                               : Container(
                                   margin: EdgeInsets.all(5),
@@ -272,23 +294,51 @@ class _AddPageState extends State<AddPage> {
                                           '' &&
                                       descController.text.trim() != '' &&
                                       sellerController.text.trim() != '')) {
-                                    Flushbar(
-                                        duration: Duration(milliseconds: 1500),
-                                        flushbarPosition: FlushbarPosition.TOP,
+                                    // Flushbar(
+                                    //     duration: Duration(milliseconds: 1500),
+                                    //     flushbarPosition: FlushbarPosition.TOP,
+                                    //     backgroundColor: Colors.red[400],
+                                    //     icon: Icon(Icons.dangerous,
+                                    //         color: Colors.white),
+                                    //     message: 'Tolong isi semua field')
+                                    //   ..show(context);
+                                    final snackBar = SnackBar(
                                         backgroundColor: Colors.red[400],
-                                        icon: Icon(Icons.dangerous,
-                                            color: Colors.white),
-                                        message: 'Tolong isi semua field')
-                                      ..show(context);
+                                        duration: Duration(milliseconds: 1500),
+                                        content: Row(
+                                          children: [
+                                            Icon(Icons.dangerous,
+                                                color: whiteColor),
+                                            SizedBox(width: 8),
+                                            Text('Tolong isi semua field')
+                                          ],
+                                        ));
+
+                                    ScaffoldMessenger.of(context)
+                                        .showSnackBar(snackBar);
                                   } else if (_images.length < 3) {
-                                    Flushbar(
-                                        duration: Duration(milliseconds: 1500),
-                                        flushbarPosition: FlushbarPosition.TOP,
+                                    // Flushbar(
+                                    //     duration: Duration(milliseconds: 1500),
+                                    //     flushbarPosition: FlushbarPosition.TOP,
+                                    //     backgroundColor: Colors.red[400],
+                                    //     icon: Icon(Icons.dangerous,
+                                    //         color: Colors.white),
+                                    //     message: 'Upload foto produk minimal 3')
+                                    //   ..show(context);
+                                    final snackBar = SnackBar(
                                         backgroundColor: Colors.red[400],
-                                        icon: Icon(Icons.dangerous,
-                                            color: Colors.white),
-                                        message: 'Upload foto produk minimal 3')
-                                      ..show(context);
+                                        duration: Duration(milliseconds: 1500),
+                                        content: Row(
+                                          children: [
+                                            Icon(Icons.dangerous,
+                                                color: whiteColor),
+                                            SizedBox(width: 8),
+                                            Text('Upload foto produk minimal 3')
+                                          ],
+                                        ));
+
+                                    ScaffoldMessenger.of(context)
+                                        .showSnackBar(snackBar);
                                   } else {
                                     setState(() {
                                       isUploading = true;
@@ -333,14 +383,28 @@ class _AddPageState extends State<AddPage> {
                                         MaterialPageRoute(
                                             builder: (builder) => HomePage()));
 
-                                    Flushbar(
-                                        duration: Duration(milliseconds: 1500),
-                                        flushbarPosition: FlushbarPosition.TOP,
+                                    // Flushbar(
+                                    //     duration: Duration(milliseconds: 1500),
+                                    //     flushbarPosition: FlushbarPosition.TOP,
+                                    //     backgroundColor: Colors.green[400],
+                                    //     icon: Icon(Icons.check_box,
+                                    //         color: Colors.white),
+                                    //     message: 'Produk berhasil diupload')
+                                    //   ..show(context);
+                                    final snackBar = SnackBar(
                                         backgroundColor: Colors.green[400],
-                                        icon: Icon(Icons.check_box,
-                                            color: Colors.white),
-                                        message: 'Produk berhasil diupload')
-                                      ..show(context);
+                                        duration: Duration(milliseconds: 1500),
+                                        content: Row(
+                                          children: [
+                                            Icon(Icons.check_box,
+                                                color: whiteColor),
+                                            SizedBox(width: 8),
+                                            Text('Produk berhasil diupload')
+                                          ],
+                                        ));
+
+                                    ScaffoldMessenger.of(context)
+                                        .showSnackBar(snackBar);
                                   }
                                 },
                                 child:

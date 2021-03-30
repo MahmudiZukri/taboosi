@@ -103,11 +103,18 @@ class _HomePageState extends State<HomePage> {
                                     .toList(),
                               );
                             } else {
-                              return Center(
-                                child: CircularProgressIndicator(
-                                    valueColor: AlwaysStoppedAnimation<Color>(
-                                        whiteColor),
-                                    backgroundColor: turquoiseColor),
+                              return SizedBox(
+                                width: 200.0,
+                                height: 100.0,
+                                child: Shimmer.fromColors(
+                                    baseColor: Colors.red,
+                                    highlightColor: Colors.yellow,
+                                    child: Column(
+                                      children: [
+                                        ShimmerLayout(),
+                                        SizedBox(height: 30)
+                                      ],
+                                    )),
                               );
                             }
                           }),
