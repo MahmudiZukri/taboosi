@@ -6,8 +6,6 @@ class AddPage extends StatefulWidget {
 }
 
 class _AddPageState extends State<AddPage> {
-  // final MoneyMaskedTextController priceController = MoneyMaskedTextController(
-  //     leftSymbol: 'Rp ', precision: 0, decimalSeparator: '');
   final TextEditingController priceController = TextEditingController();
   final TextEditingController nameController = TextEditingController();
   final TextEditingController cityController = TextEditingController();
@@ -20,15 +18,12 @@ class _AddPageState extends State<AddPage> {
   final TextEditingController chipsetController = TextEditingController();
   final TextEditingController chipsetSeriesController = TextEditingController();
   final TextEditingController descController = TextEditingController();
-  // final TextEditingController sellerController = TextEditingController();
   final TextEditingController sellerController = TextEditingController();
 
   List<File> _images = [];
   final picker = ImagePicker();
   List<String> imagesURL = [];
   bool isUploading = false;
-
-  // int selectedPrice = 0;
 
   @override
   void dispose() {
@@ -212,19 +207,6 @@ class _AddPageState extends State<AddPage> {
                                               chooseImage();
                                             }
                                           : () {
-                                              // Flushbar(
-                                              //     duration: Duration(
-                                              //         milliseconds: 1500),
-                                              //     flushbarPosition:
-                                              //         FlushbarPosition.TOP,
-                                              //     backgroundColor:
-                                              //         Colors.red[400],
-                                              //     icon: Icon(Icons.dangerous,
-                                              //         color: Colors.white),
-                                              //     message:
-                                              //         'Upload foto produk masksimal 8')
-                                              //   ..show(context);
-
                                               final snackBar = SnackBar(
                                                   backgroundColor:
                                                       Colors.red[400],
@@ -280,7 +262,7 @@ class _AddPageState extends State<AddPage> {
                                   primary: turquoiseColor,
                                   elevation: 0,
                                   shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(17)),
+                                      borderRadius: BorderRadius.circular(25)),
                                 ),
                                 onPressed: () async {
                                   if (!(nameController.text.trim() != '' &&
@@ -295,14 +277,6 @@ class _AddPageState extends State<AddPage> {
                                           '' &&
                                       descController.text.trim() != '' &&
                                       sellerController.text.trim() != '')) {
-                                    // Flushbar(
-                                    //     duration: Duration(milliseconds: 1500),
-                                    //     flushbarPosition: FlushbarPosition.TOP,
-                                    //     backgroundColor: Colors.red[400],
-                                    //     icon: Icon(Icons.dangerous,
-                                    //         color: Colors.white),
-                                    //     message: 'Tolong isi semua field')
-                                    //   ..show(context);
                                     final snackBar = SnackBar(
                                         backgroundColor: Colors.red[400],
                                         duration: Duration(milliseconds: 1500),
@@ -318,14 +292,6 @@ class _AddPageState extends State<AddPage> {
                                     ScaffoldMessenger.of(context)
                                         .showSnackBar(snackBar);
                                   } else if (_images.length < 3) {
-                                    // Flushbar(
-                                    //     duration: Duration(milliseconds: 1500),
-                                    //     flushbarPosition: FlushbarPosition.TOP,
-                                    //     backgroundColor: Colors.red[400],
-                                    //     icon: Icon(Icons.dangerous,
-                                    //         color: Colors.white),
-                                    //     message: 'Upload foto produk minimal 3')
-                                    //   ..show(context);
                                     final snackBar = SnackBar(
                                         backgroundColor: Colors.red[400],
                                         duration: Duration(milliseconds: 1500),
@@ -384,14 +350,6 @@ class _AddPageState extends State<AddPage> {
                                         MaterialPageRoute(
                                             builder: (builder) => HomePage()));
 
-                                    // Flushbar(
-                                    //     duration: Duration(milliseconds: 1500),
-                                    //     flushbarPosition: FlushbarPosition.TOP,
-                                    //     backgroundColor: Colors.green[400],
-                                    //     icon: Icon(Icons.check_box,
-                                    //         color: Colors.white),
-                                    //     message: 'Produk berhasil diupload')
-                                    //   ..show(context);
                                     final snackBar = SnackBar(
                                         backgroundColor: Colors.green[400],
                                         duration: Duration(milliseconds: 1500),
@@ -448,25 +406,6 @@ class _AddPageState extends State<AddPage> {
   }
 
   Future uploadImage() async {
-    // Kodingan lama
-    // List<String> imagetemps = [];
-
-    // for (var img in _images) {
-    //   String fileName = basename(img.path);
-    //   StorageReference ref = FirebaseStorage.instance.ref().child(fileName);
-
-    //   StorageUploadTask task = ref.putFile(img);
-
-    //   StorageTaskSnapshot snapshot = await task.onComplete;
-
-    //   await snapshot.ref
-    //       .getDownloadURL()
-    //       .then((value) => imagetemps.add(value));
-    // }
-
-    //Dsini kita langsung masukin nilai imageTemps ke imagesURL yang bakal dipanggil di method addGadget
-    // imagesURL = imagetemps;
-
     List<String> imagesTemp = [];
 
     for (var img in _images) {
@@ -476,7 +415,7 @@ class _AddPageState extends State<AddPage> {
           firebase_storage.FirebaseStorage.instance.ref(fileName);
 
       // Kita ikuti aja kodingan pak Erico di BWA Flutix (kayak diatas) tapi dengan versi terbaru
-      // Kita coba ngikutin yang di dokumentasi
+      // sesuai dengan yang di dokumentasi
 
       /* Kita gatau ini kenapa malah manggil firebase_core, pas kita bikin firebase_storage juga ga error tapi
       kita ikutin yang di dokumentasi aja */

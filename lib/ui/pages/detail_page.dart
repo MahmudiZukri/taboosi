@@ -313,7 +313,7 @@ class _DetailPageState extends State<DetailPage> {
                                 elevation: 0,
                                 primary: turquoiseColor,
                                 shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(17)),
+                                    borderRadius: BorderRadius.circular(25)),
                               ),
                               onPressed: () {
                                 _confirmCall();

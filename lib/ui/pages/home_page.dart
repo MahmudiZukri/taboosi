@@ -56,22 +56,22 @@ class _HomePageState extends State<HomePage> {
                     SizedBox(width: 20),
                     CityCard(City(
                         id: 1,
-                        name: 'Medan',
+                        name: 'Sibolga',
                         cityImageURL: 'assets/city2.png')),
                     SizedBox(width: 20),
                     CityCard(City(
                         id: 2,
-                        name: 'Sibolga',
+                        name: 'Medan',
                         cityImageURL: 'assets/city4.png')),
                     SizedBox(width: 20),
                     CityCard(City(
                         id: 3,
-                        name: 'Jakarta',
+                        name: 'Bandung',
                         cityImageURL: 'assets/city5.png')),
                     SizedBox(width: 20),
                     CityCard(City(
                         id: 4,
-                        name: 'Bandung',
+                        name: 'Jakarta',
                         cityImageURL: 'assets/city6.png')),
                     SizedBox(width: edge),
                   ]),
@@ -140,7 +140,12 @@ class _HomePageState extends State<HomePage> {
                             name: 'Tentang Aplikasi',
                             noteImageURL: 'assets/note.png',
                             desc: 'Updated 20 Apr'),
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (builder) => NotePage()));
+                        },
                       ),
 
                       SizedBox(height: 100)

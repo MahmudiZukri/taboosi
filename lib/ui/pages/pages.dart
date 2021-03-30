@@ -12,9 +12,6 @@ import 'package:path/path.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:firebase_core/firebase_core.dart' as firebase_core;
 import 'package:shimmer/shimmer.dart';
-// import 'package:flutter_masked_text/flutter_masked_text.dart';
-
-// import 'package:provider/provider.dart';
 
 part 'splash_page.dart';
 part 'home_page.dart';
@@ -22,3 +19,4 @@ part 'detail_page.dart';
 part 'error_page.dart';
 part 'detail_photo_page.dart';
 part 'add_gadget_page.dart';
+part 'note_page.dart';

@@ -17,21 +17,25 @@ class ErrorPage extends StatelessWidget {
                   style: blackTextFont.copyWith(fontSize: 24)),
               SizedBox(height: 14),
               Text('Sepertinya halaman yang\nkamu cari sudah hilang',
-                  style: greyTextFont.copyWith(fontSize: 16),
+                  style: greyTextFont.copyWith(fontSize: 14),
                   textAlign: TextAlign.center),
               SizedBox(height: 50),
               Container(
                   height: 50,
-                  width: 210,
+                  width: MediaQuery.of(context).size.width > 600
+                      ? 210
+                      : MediaQuery.of(context).size.width / 2,
                   child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(),
+                      style: ElevatedButton.styleFrom(
+                        primary: turquoiseColor,
+                        elevation: 0,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(25)),
+                      ),
                       onPressed: () {
-                        // Navigator.push(
-                        //     context,
-                        //     MaterialPageRoute(
-                        //         builder: (context) => HomePage()));
+                        Navigator.pop(context);
                       },
-                      child: Text('Kembali ke Home', style: whiteTextFont)))
+                      child: Text('Kembali', style: whiteTextFont)))
             ],
           ),
         ),

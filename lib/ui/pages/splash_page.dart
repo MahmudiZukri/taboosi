@@ -46,7 +46,7 @@ class SplashPage extends StatelessWidget {
                           primary: turquoiseColor,
                           elevation: 0,
                           shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(17)),
+                              borderRadius: BorderRadius.circular(25)),
                         ),
                         onPressed: () {
                           Navigator.push(

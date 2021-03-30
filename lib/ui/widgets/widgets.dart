@@ -10,4 +10,3 @@ part 'note_card.dart';
 part 'bottom_navbar_item.dart';
 part 'textfield_card.dart';
 part 'shimmer_layout.dart';
-// part 'images_picker.dart';

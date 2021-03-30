@@ -46,59 +46,5 @@ class Gadget {
     required this.seller,
     this.photos,
     this.gadgetID,
-
-    // this.rating,
   });
-
-  factory Gadget.fromJson(json) {
-    return Gadget(
-        price: json['price'],
-        name: json['name'],
-        city: json['city'],
-        phone: json['phone'],
-        mapURL: json['map_url'],
-        address: json['address'],
-        battery: json['battery'],
-        screen: json['screen'],
-        camera: json['camera'],
-        chipset: json['chipset'],
-        chipsetSeries: json['chipsetSeries'],
-        desc: json['desc'],
-        seller: json['seller'],
-        photos: json['photos'],
-        gadgetID: json['gadget_id']);
-  }
-
-  // factory Gadget.fromJson(Map<String, dynamic> json) {
-  //   return Gadget(
-  //       rating: json['rating'],
-  //       price: json['price'],
-  //       name: json['name'],
-  //       city: json['city'],
-  //       phone: json['phone'],
-  //       mapURL: json['map_url'],
-  //       address: json['address'],
-  //       battery: json['battery'],
-  //       screen: json['screen'],
-  //       camera: json['camera'],
-  //       chipset: json['chipset'],
-  //       chipsetSeries: json['chipsetSeries'],
-  //       photos: json['photos']);
-  // }
-
-  // Gadget.fromJson(json) {
-  //   id = json['id'];
-  //   address = json['address'];
-  //   city = json['city'];
-  //   country = json['country'];
-  //   mapURL = json['map_url'];
-  //   name = json['name'];
-  //   numberOfBedrooms = json['number_of_bedrooms'];
-  //   numberOfCupboards = json['number_of_cupboards'];
-  //   numberOfKitchens = json['number_of_kitchens'];
-  //   phone = json['phone'];
-  //   photos = json['photos'];
-  //   price = json['price'];
-  //   rating = json['rating'];
-  // }
 }
