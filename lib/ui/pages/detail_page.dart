@@ -44,7 +44,7 @@ class _DetailPageState extends State<DetailPage> {
 
     int index = 0;
     return Scaffold(
-      backgroundColor: backgroundColor,
+      backgroundColor: Color(0xFFF6F7F8),
       body: SafeArea(
           child: Stack(
         children: [
