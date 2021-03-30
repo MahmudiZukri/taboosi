@@ -167,6 +167,7 @@ class _AddPageState extends State<AddPage> {
                     'Lokasi COD',
                     style: greyTextFont,
                   ),
+                  SizedBox(height: 10),
                   TextfieldCard(
                     controller: addressController,
                     width: MediaQuery.of(context).size.width - 2 * edge,
