@@ -7,11 +7,23 @@ Color backgroundColor = Colors.white;
 Color whiteColor = Colors.white;
 Color blackColor = Colors.black;
 
-TextStyle blackTextFont =
-    TextStyle(color: blackColor, fontSize: 18, fontWeight: FontWeight.w500);
-TextStyle greyTextFont =
-    TextStyle(color: greyColor, fontSize: 14, fontWeight: FontWeight.w300);
-TextStyle whiteTextFont =
-    TextStyle(color: whiteColor, fontSize: 18, fontWeight: FontWeight.w500);
-TextStyle purpleTextFont =
-    TextStyle(color: turquoiseColor, fontSize: 16, fontWeight: FontWeight.w500);
+TextStyle blackTextFont = TextStyle(
+    color: blackColor,
+    fontFamily: 'Poppins',
+    fontSize: 18,
+    fontWeight: FontWeight.w500);
+TextStyle greyTextFont = TextStyle(
+    color: greyColor,
+    fontFamily: 'Poppins',
+    fontSize: 14,
+    fontWeight: FontWeight.w300);
+TextStyle whiteTextFont = TextStyle(
+    color: whiteColor,
+    fontFamily: 'Poppins',
+    fontSize: 18,
+    fontWeight: FontWeight.w500);
+TextStyle purpleTextFont = TextStyle(
+    color: turquoiseColor,
+    fontFamily: 'Poppins',
+    fontSize: 16,
+    fontWeight: FontWeight.w500);

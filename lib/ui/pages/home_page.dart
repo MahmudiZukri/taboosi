@@ -103,22 +103,32 @@ class _HomePageState extends State<HomePage> {
                                     .toList(),
                               );
                             } else {
-                              return SizedBox(
-                                width: 200.0,
-                                height: 100.0,
-                                child: Shimmer.fromColors(
-                                    baseColor: Colors.red,
-                                    highlightColor: Colors.yellow,
-                                    child: Column(
-                                      children: [
-                                        ShimmerLayout(),
-                                        SizedBox(height: 30)
-                                      ],
-                                    )),
+                              return Column(
+                                children: [
+                                  SizedBox(
+                                    height: 110.0,
+                                    width: MediaQuery.of(context).size.width -
+                                        2 * edge,
+                                    child: Shimmer.fromColors(
+                                        baseColor: Colors.grey[300]!,
+                                        highlightColor: whiteColor,
+                                        child: ShimmerLayout()),
+                                  ),
+                                  SizedBox(height: 30),
+                                  SizedBox(
+                                    height: 110.0,
+                                    width: MediaQuery.of(context).size.width -
+                                        2 * edge,
+                                    child: Shimmer.fromColors(
+                                        baseColor: Colors.grey[300]!,
+                                        highlightColor: whiteColor,
+                                        child: ShimmerLayout()),
+                                  ),
+                                  SizedBox(height: 30)
+                                ],
                               );
                             }
                           }),
-
                       //NOTE: CATATAN
                       Text('Catatan',
                           style: blackTextFont.copyWith(

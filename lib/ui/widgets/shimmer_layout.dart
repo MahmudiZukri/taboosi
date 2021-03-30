@@ -17,6 +17,7 @@ class ShimmerLayout extends StatelessWidget {
         Flexible(
           child: SizedBox(
             height: 110,
+            width: MediaQuery.of(context).size.width - 2 * edge - 130 - 20,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -29,7 +30,7 @@ class ShimmerLayout extends StatelessWidget {
                         2 * edge -
                         110 -
                         20),
-                SizedBox(height: 11),
+                SizedBox(height: 13),
                 Container(
                     height: 14,
                     color: Colors.grey,
