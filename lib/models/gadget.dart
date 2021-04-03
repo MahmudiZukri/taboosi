@@ -29,6 +29,7 @@ class Gadget {
   //TODO: Bikin collection Draft buat ngereview POST dari user
 
   //TODO: Button 'Hubungi Penjual' kita bikin ada 3 pilihan, yaitu Dapatkan Nomor, Hubungi lewat WA, Kembali. DIPERTIMBANGKAN
+  //TODO: Ganti foto Padangsidimpuan
 
   Gadget({
     required this.price,

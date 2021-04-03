@@ -18,20 +18,35 @@ class _DetailPageState extends State<DetailPage> {
         barrierDismissible: false, // user must tap button!
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text('Konfirmasi', style: TextStyle(color: turquoiseColor)),
-            content: Text('Apakah Anda ingin menghubungi penjual?'),
+            //TODO: NTAGUR FONT SIZE KEEMPAT INI + NAMBAH HUBUNGI LEWAT WA
+            title: Text('Konfirmasi', style: turquoiseTextFont),
+            content: Text('Apakah Anda ingin menghubungi penjual?',
+                style: greyTextFont.copyWith(fontSize: 14)),
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
             actions: <Widget>[
               TextButton(
-                child: Text('Ya', style: TextStyle(color: turquoiseColor)),
+                child: Text('Chat via WhatsApp',
+                    style: turquoiseTextFont.copyWith(fontSize: 12)),
+                onPressed: () {
+                  final String message = "Text";
+                  final String url =
+                      'whatsapp://send?phone=${widget.gadget.phone}&text=$message';
+                  Navigator.of(context).pop();
+                  launchURL(context, url);
+                },
+              ),
+              TextButton(
+                child:
+                    Text('Ya', style: turquoiseTextFont.copyWith(fontSize: 12)),
                 onPressed: () {
                   Navigator.of(context).pop();
                   launchURL(context, 'tel:${widget.gadget.phone}');
                 },
               ),
               TextButton(
-                child: Text('Tidak', style: TextStyle(color: turquoiseColor)),
+                child: Text('Tidak',
+                    style: turquoiseTextFont.copyWith(fontSize: 12)),
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
@@ -51,8 +66,11 @@ class _DetailPageState extends State<DetailPage> {
           //NOTE: GADGET IMAGE
           Align(
               alignment: Alignment.topCenter,
-              child: Image.network(widget.gadget.photos![0],
-                  height: 350, fit: BoxFit.cover)),
+              child: Hero(
+                tag: widget.gadget.gadgetID!,
+                child: Image.network(widget.gadget.photos![0],
+                    height: 350, fit: BoxFit.cover),
+              )),
           ListView(
             children: [
               Padding(
@@ -92,7 +110,14 @@ class _DetailPageState extends State<DetailPage> {
                   ],
                 ),
               ),
-              SizedBox(height: 222), //sebelumnya 228
+              TweenAnimationBuilder(
+                tween: Tween<double>(begin: 258, end: 222),
+                duration: Duration(milliseconds: 1150),
+                builder: (BuildContext context, double _value, child) {
+                  return SizedBox(height: _value);
+                },
+                // child: SizedBox(height: 222)
+              ), //sebelumnya 228
               Container(
                 padding: EdgeInsets.symmetric(horizontal: edge),
                 decoration: BoxDecoration(
@@ -123,7 +148,7 @@ class _DetailPageState extends State<DetailPage> {
                                           symbol: '',
                                           decimalDigits: 0)
                                       .format(widget.gadget.price),
-                                  style: purpleTextFont,
+                                  style: turquoiseTextFont,
                                 )
                               ],
                             ),
@@ -159,7 +184,8 @@ class _DetailPageState extends State<DetailPage> {
                                 color: turquoiseColor, height: 32),
                             SizedBox(height: 8),
                             Text(widget.gadget.battery,
-                                style: purpleTextFont.copyWith(fontSize: 14)),
+                                style:
+                                    turquoiseTextFont.copyWith(fontSize: 14)),
                             Text(' mAh', style: greyTextFont)
                           ],
                         ),
@@ -170,7 +196,8 @@ class _DetailPageState extends State<DetailPage> {
                                 color: turquoiseColor, height: 32),
                             SizedBox(height: 8),
                             Text(widget.gadget.screen,
-                                style: purpleTextFont.copyWith(fontSize: 14)),
+                                style:
+                                    turquoiseTextFont.copyWith(fontSize: 14)),
                             Text(' inch', style: greyTextFont)
                           ],
                         ),
@@ -181,7 +208,8 @@ class _DetailPageState extends State<DetailPage> {
                                 color: turquoiseColor, height: 32),
                             SizedBox(height: 8),
                             Text(widget.gadget.camera,
-                                style: purpleTextFont.copyWith(fontSize: 14)),
+                                style:
+                                    turquoiseTextFont.copyWith(fontSize: 14)),
                             Text(' MP', style: greyTextFont)
                           ],
                         ),
@@ -192,7 +220,8 @@ class _DetailPageState extends State<DetailPage> {
                                 color: turquoiseColor, height: 32),
                             SizedBox(height: 8),
                             Text(widget.gadget.chipset,
-                                style: purpleTextFont.copyWith(fontSize: 14)),
+                                style:
+                                    turquoiseTextFont.copyWith(fontSize: 14)),
                             Text(widget.gadget.chipsetSeries,
                                 style: greyTextFont)
                           ],
@@ -313,7 +342,7 @@ class _DetailPageState extends State<DetailPage> {
                                 elevation: 0,
                                 primary: turquoiseColor,
                                 shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(25)),
+                                    borderRadius: BorderRadius.circular(20)),
                               ),
                               onPressed: () {
                                 _confirmCall();

@@ -75,6 +75,7 @@ class _AddPageState extends State<AddPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  SizedBox(height: 10),
                   TextfieldCard(
                     controller: nameController,
                     width: MediaQuery.of(context).size.width - 2 * edge,
@@ -85,20 +86,10 @@ class _AddPageState extends State<AddPage> {
                       controller: priceController,
                       width: MediaQuery.of(context).size.width - 2 * edge,
                       labelText: 'Harga Produk',
-                      // onChanged: (text) {
-                      //   String temp = '';
-
-                      //   for (int i = 0; i < text.length; i++) {
-                      //     temp += text.isDigit(i) ? text[i] : '';
-                      //   }
-
-                      //   setState(() {
-                      //     selectedPrice = int.tryParse(temp) ?? 987;
-                      //   });
-
-                      //   priceController.selection = TextSelection.fromPosition(
-                      //       TextPosition(offset: priceController.text.length));
-                      // },
+                      inputFormatters: [
+                        FilteringTextInputFormatter.digitsOnly,
+                        CurrencyFormat()
+                      ],
                       inputNumber: true),
                   TextfieldCard(
                       controller: batteryController,
@@ -154,8 +145,8 @@ class _AddPageState extends State<AddPage> {
                   TextfieldCard(
                     controller: phoneController,
                     width: MediaQuery.of(context).size.width - 2 * edge,
-                    labelText: 'No. Handphone',
-                    hintText: 'e.g. 0821********',
+                    labelText: 'No. Handphone / WhatsApp',
+                    hintText: 'e.g. +62821********',
                     inputNumber: true,
                   ),
                   Text(
@@ -262,7 +253,7 @@ class _AddPageState extends State<AddPage> {
                                   primary: turquoiseColor,
                                   elevation: 0,
                                   shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(25)),
+                                      borderRadius: BorderRadius.circular(20)),
                                 ),
                                 onPressed: () async {
                                   if (!(nameController.text.trim() != '' &&
@@ -310,12 +301,21 @@ class _AddPageState extends State<AddPage> {
                                     setState(() {
                                       isUploading = true;
                                     });
+
+                                    String text = priceController.text;
+
+                                    String temp = '';
+
+                                    for (int i = 0; i < text.length; i++) {
+                                      temp += text.isDigit(i) ? text[i] : '';
+                                    }
+
+                                    int price = int.parse(temp);
+
                                     await uploadImage();
                                     await GadgetServices.addGadget(
                                         Gadget(
-                                            price:
-                                                int.parse(priceController.text),
-                                            // selectedPrice,
+                                            price: price,
                                             name: nameController.text,
                                             city: cityController.text,
                                             phone: phoneController.text,

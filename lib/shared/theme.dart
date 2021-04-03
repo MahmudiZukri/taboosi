@@ -22,7 +22,7 @@ TextStyle whiteTextFont = TextStyle(
     fontFamily: 'Poppins',
     fontSize: 18,
     fontWeight: FontWeight.w500);
-TextStyle purpleTextFont = TextStyle(
+TextStyle turquoiseTextFont = TextStyle(
     color: turquoiseColor,
     fontFamily: 'Poppins',
     fontSize: 16,

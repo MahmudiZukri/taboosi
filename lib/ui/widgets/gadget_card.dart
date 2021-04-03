@@ -23,11 +23,14 @@ class GadgetCard extends StatelessWidget {
                   width: 130,
                   child: Stack(
                     children: [
-                      Image.network(
-                        gadget.photos![0],
-                        height: 110,
-                        width: 130,
-                        fit: BoxFit.cover,
+                      Hero(
+                        tag: gadget.gadgetID!,
+                        child: Image.network(
+                          gadget.photos![0],
+                          height: 110,
+                          width: 130,
+                          fit: BoxFit.cover,
+                        ),
                       ),
                       // Align(
                       //   alignment: Alignment.topRight,
@@ -72,7 +75,7 @@ class GadgetCard extends StatelessWidget {
                           NumberFormat.currency(
                                   locale: 'id_iD', symbol: '', decimalDigits: 0)
                               .format(gadget.price),
-                          style: purpleTextFont,
+                          style: turquoiseTextFont,
                         )
                       ],
                     ),
