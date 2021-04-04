@@ -79,7 +79,7 @@ class _AddPageState extends State<AddPage> {
                   TextfieldCard(
                     controller: nameController,
                     width: MediaQuery.of(context).size.width - 2 * edge,
-                    labelText: 'Nama Produk',
+                    labelText: 'Nama Produk RAM/Memori Internal',
                     hintText: 'e.g. Xiaomi Mi 11 6/64',
                   ),
                   TextfieldCard(

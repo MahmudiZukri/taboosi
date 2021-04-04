@@ -29,7 +29,8 @@ class _DetailPageState extends State<DetailPage> {
                 child: Text('Chat via WhatsApp',
                     style: turquoiseTextFont.copyWith(fontSize: 12)),
                 onPressed: () {
-                  final String message = "Text";
+                  final String message =
+                      "Hai, saya tertarik dengan smartphone anda ${widget.gadget.name}. Apakah masih tersedia?";
                   final String url =
                       'whatsapp://send?phone=${widget.gadget.phone}&text=$message';
                   Navigator.of(context).pop();
