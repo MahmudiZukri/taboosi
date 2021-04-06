@@ -20,10 +20,14 @@ class _AddPageState extends State<AddPage> {
   final TextEditingController descController = TextEditingController();
   final TextEditingController sellerController = TextEditingController();
 
-  List<File> _images = [];
-  final picker = ImagePicker();
+  List<File> _imagesFile = [];
+  // final picker = ImagePicker();
   List<String> imagesURL = [];
+
   bool isUploading = false;
+  final picker = MultiImagePicker();
+
+  List<Asset> _images = [];
 
   @override
   void dispose() {
@@ -176,58 +180,68 @@ class _AddPageState extends State<AddPage> {
                   SizedBox(height: 10),
                   //NOTE: UPLOAD FOTO
                   Container(
-                    height: 210,
-                    padding: EdgeInsets.all(5),
-                    decoration: BoxDecoration(
-                        border: Border.all(color: Colors.grey),
-                        borderRadius: BorderRadius.circular(10)),
-                    child: GridView.builder(
-                        itemCount: _images.length + 1,
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 3),
-                        itemBuilder: (context, index) {
-                          return index == 0
-                              ? Center(
-                                  child: IconButton(
-                                      icon: Icon(
-                                        Icons.add,
-                                        color: turquoiseColor,
-                                      ),
-                                      onPressed: _images.length < 8
-                                          ? () {
-                                              chooseImage();
-                                            }
-                                          : () {
-                                              final snackBar = SnackBar(
-                                                  backgroundColor:
-                                                      Colors.red[400],
-                                                  duration: Duration(
-                                                      milliseconds: 1500),
-                                                  content: Row(
-                                                    children: [
-                                                      Icon(Icons.dangerous,
-                                                          color: whiteColor),
-                                                      SizedBox(width: 8),
-                                                      Text(
-                                                          'Upload foto produk maksimal 8')
-                                                    ],
-                                                  ));
+                      height: 210,
+                      padding: EdgeInsets.all(5),
+                      decoration: BoxDecoration(
+                          border: Border.all(color: Colors.grey),
+                          borderRadius: BorderRadius.circular(10)),
+                      child: GridView.count(
+                        crossAxisCount: 3,
+                        children: List.generate(_images.length, (index) {
+                              Asset asset = _images[index];
+                              return Container(
+                                decoration: BoxDecoration(
+                                    border:
+                                        Border.all(color: Colors.grey[400]!),
+                                    borderRadius: BorderRadius.circular(11)),
+                                margin: EdgeInsets.all(5),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(10),
+                                  child: AssetThumb(
+                                    asset: asset,
+                                    width: 300,
+                                    height: 300,
+                                  ),
+                                ),
+                              );
+                            }) +
+                            [
+                              Container(
+                                margin: EdgeInsets.all(5),
+                                decoration: BoxDecoration(
+                                    border:
+                                        Border.all(color: Colors.grey[400]!),
+                                    borderRadius: BorderRadius.circular(11)),
+                                child: IconButton(
+                                    icon:
+                                        Icon(Icons.add, color: turquoiseColor),
+                                    onPressed: _images.length < 8
+                                        ? () {
+                                            chooseImage();
+                                            getFilesFromAssets();
+                                          }
+                                        : () {
+                                            final snackBar = SnackBar(
+                                                backgroundColor:
+                                                    Colors.red[400],
+                                                duration: Duration(
+                                                    milliseconds: 1500),
+                                                content: Row(
+                                                  children: [
+                                                    Icon(Icons.dangerous,
+                                                        color: whiteColor),
+                                                    SizedBox(width: 8),
+                                                    Text(
+                                                        'Upload foto produk maksimal 8')
+                                                  ],
+                                                ));
 
-                                              ScaffoldMessenger.of(context)
-                                                  .showSnackBar(snackBar);
-                                            }))
-                              : Container(
-                                  margin: EdgeInsets.all(5),
-                                  decoration: BoxDecoration(
-                                      border: Border.all(color: Colors.grey),
-                                      borderRadius: BorderRadius.circular(10),
-                                      image: DecorationImage(
-                                          fit: BoxFit.cover,
-                                          image: FileImage(_images[index -
-                                              1]))), //karna index 0 dah kepake jadi otomatis yang kesini index ke 1 dst jdi kita harus kurangin 1 biar foto yg pertama itu _image[0]
-                                );
-                        }),
-                  ),
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(snackBar);
+                                          }),
+                              )
+                            ],
+                      )),
 
                   Center(
                     child: Container(
@@ -378,37 +392,57 @@ class _AddPageState extends State<AddPage> {
   }
 
   chooseImage() async {
-    final PickedFile? pickedFile =
-        await picker.getImage(source: ImageSource.gallery);
+    // KODE LAMA IMAGE PICKER
+    // final PickedFile? pickedFile =
+    //     await picker.getImage(source: ImageSource.gallery);
 
-    if (pickedFile == null) {
-      await retrieveLostData();
-    } else {
-      setState(() {
-        _images.add(File(pickedFile.path));
-      });
+    // if (pickedFile == null) {
+    //   await retrieveLostData();
+    // } else {
+    //   setState(() {
+    //     _images.add(File(pickedFile.path));
+    //   });
+    // }
+
+    List<Asset>? _resultList = [];
+
+    try {
+      _resultList = await MultiImagePicker.pickImages(
+          maxImages: 8,
+          enableCamera: true,
+          selectedAssets: _images,
+          materialOptions: MaterialOptions(
+              actionBarTitle: "Pilih Foto",
+              actionBarColor: '#00ADB5',
+              statusBarColor: '#393E46',
+              selectCircleStrokeColor: '#00ADB5'));
+    } on Exception catch (e) {
+      print('EXCEPTION: $e');
     }
+
+    setState(() {
+      _images += _resultList!;
+    });
   }
 
-  Future<void> retrieveLostData() async {
-    final LostData response = await picker.getLostData();
+  getFilesFromAssets() async {
+    _images.forEach((imageAsset) async {
+      final filePath =
+          await FlutterAbsolutePath.getAbsolutePath(imageAsset.identifier);
 
-    if (response.isEmpty) {
-      return;
-    }
-    if (response.file != null) {
-      setState(() {
-        _images.add(File(response.file!.path));
-      });
-    } else {
-      print(response.file);
-    }
+      File tempFile = File(filePath);
+      if (tempFile.existsSync()) {
+        _imagesFile.add(tempFile);
+      }
+    });
   }
 
   Future uploadImage() async {
+    // _imagesFile = getFilesFromAssets(_images);
+
     List<String> imagesTemp = [];
 
-    for (var img in _images) {
+    for (var img in _imagesFile) {
       String fileName = basename(img.path);
 
       firebase_storage.Reference ref =
