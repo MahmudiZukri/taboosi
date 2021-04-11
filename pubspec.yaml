@@ -24,10 +24,10 @@ dependencies:
   flutter:
     sdk: flutter
   carousel_slider: ^ 4.0.0-nullsafety.0
-  cloud_firestore: ^1.0.1
+  cloud_firestore: ^1.0.4
   cupertino_icons: ^1.0.0
-  firebase_core: ^1.0.1
-  firebase_storage: ^8.0.0
+  firebase_core: ^1.0.3
+  firebase_storage: ^8.0.2
   flutter_absolute_path: ^1.0.6
   image_picker: ^0.7.3
   intl: ^0.17.0

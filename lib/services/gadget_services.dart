@@ -33,21 +33,21 @@ class GadgetServices {
     await gadgets.get().then(
         (QuerySnapshot querySnapshot) => querySnapshot.docs.forEach((doc) {
               listGadgets.add(Gadget(
-                  price: doc.data()!['price'],
-                  name: doc.data()!['name'],
-                  city: doc.data()!['city'],
-                  phone: doc.data()!['phone'],
-                  mapURL: doc.data()!['mapURL'],
-                  address: doc.data()!['address'],
-                  battery: doc.data()!['battery'],
-                  screen: doc.data()!['screen'],
-                  camera: doc.data()!['camera'],
-                  chipset: doc.data()!['chipset'],
-                  chipsetSeries: doc.data()!['chipset_series'],
-                  desc: doc.data()!['desc'],
-                  seller: doc.data()!['seller'],
-                  photos: doc.data()!['photos'],
-                  gadgetID: doc.data()!['gadget_id']));
+                  price: doc.data()['price'],
+                  name: doc.data()['name'],
+                  city: doc.data()['city'],
+                  phone: doc.data()['phone'],
+                  mapURL: doc.data()['mapURL'],
+                  address: doc.data()['address'],
+                  battery: doc.data()['battery'],
+                  screen: doc.data()['screen'],
+                  camera: doc.data()['camera'],
+                  chipset: doc.data()['chipset'],
+                  chipsetSeries: doc.data()['chipset_series'],
+                  desc: doc.data()['desc'],
+                  seller: doc.data()['seller'],
+                  photos: doc.data()['photos'],
+                  gadgetID: doc.data()['gadget_id']));
             }));
 
     return listGadgets;

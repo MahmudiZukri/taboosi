@@ -21,13 +21,12 @@ class _AddPageState extends State<AddPage> {
   final TextEditingController sellerController = TextEditingController();
 
   List<File> _imagesFile = [];
-  // final picker = ImagePicker();
   List<String> imagesURL = [];
-
   bool isUploading = false;
+  bool readyToUpload = false;
   final picker = MultiImagePicker();
-
   List<Asset> _images = [];
+  late int price;
 
   @override
   void dispose() {
@@ -218,7 +217,6 @@ class _AddPageState extends State<AddPage> {
                                     onPressed: _images.length < 8
                                         ? () {
                                             chooseImage();
-                                            getFilesFromAssets();
                                           }
                                         : () {
                                             final snackBar = SnackBar(
@@ -281,7 +279,8 @@ class _AddPageState extends State<AddPage> {
                                       chipsetSeriesController.text.trim() !=
                                           '' &&
                                       descController.text.trim() != '' &&
-                                      sellerController.text.trim() != '')) {
+                                      sellerController.text.trim() != '' &&
+                                      _images != [])) {
                                     final snackBar = SnackBar(
                                         backgroundColor: Colors.red[400],
                                         duration: Duration(milliseconds: 1500),
@@ -316,6 +315,14 @@ class _AddPageState extends State<AddPage> {
                                       isUploading = true;
                                     });
 
+                                    getFilesFromAssets(context);
+
+                                    if (imagesURL.length != 0) {
+                                      setState(() {
+                                        readyToUpload = true;
+                                      });
+                                    }
+
                                     String text = priceController.text;
 
                                     String temp = '';
@@ -324,60 +331,7 @@ class _AddPageState extends State<AddPage> {
                                       temp += text.isDigit(i) ? text[i] : '';
                                     }
 
-                                    int price = int.parse(temp);
-
-                                    await uploadImage();
-                                    await GadgetServices.addGadget(
-                                        Gadget(
-                                            price: price,
-                                            name: nameController.text,
-                                            city: cityController.text,
-                                            phone: phoneController.text,
-                                            // mapURL: mapURLController.text,
-                                            address: addressController.text,
-                                            battery: batteryController.text,
-                                            screen: screenController.text,
-                                            camera: cameraController.text,
-                                            chipset: chipsetController.text,
-                                            chipsetSeries:
-                                                chipsetSeriesController.text,
-                                            desc: descController.text,
-                                            seller: sellerController.text),
-                                        photos: imagesURL);
-
-                                    priceController.text = '';
-                                    nameController.text = '';
-                                    cityController.text = '';
-                                    phoneController.text = '';
-                                    // mapURLController.text ='';
-                                    addressController.text = '';
-                                    batteryController.text = '';
-                                    screenController.text = '';
-                                    cameraController.text = '';
-                                    chipsetController.text = '';
-                                    chipsetSeriesController.text = '';
-                                    descController.text = '';
-                                    sellerController.text = '';
-
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (builder) => HomePage()));
-
-                                    final snackBar = SnackBar(
-                                        backgroundColor: Colors.green[400],
-                                        duration: Duration(milliseconds: 1500),
-                                        content: Row(
-                                          children: [
-                                            Icon(Icons.check_box,
-                                                color: whiteColor),
-                                            SizedBox(width: 8),
-                                            Text('Produk berhasil diupload')
-                                          ],
-                                        ));
-
-                                    ScaffoldMessenger.of(context)
-                                        .showSnackBar(snackBar);
+                                    price = int.parse(temp);
                                   }
                                 },
                                 child:
@@ -392,18 +346,6 @@ class _AddPageState extends State<AddPage> {
   }
 
   chooseImage() async {
-    // KODE LAMA IMAGE PICKER
-    // final PickedFile? pickedFile =
-    //     await picker.getImage(source: ImageSource.gallery);
-
-    // if (pickedFile == null) {
-    //   await retrieveLostData();
-    // } else {
-    //   setState(() {
-    //     _images.add(File(pickedFile.path));
-    //   });
-    // }
-
     List<Asset>? _resultList = [];
 
     try {
@@ -421,47 +363,115 @@ class _AddPageState extends State<AddPage> {
     }
 
     setState(() {
-      _images += _resultList!;
+      if (_resultList!.length != 0) {
+        _images = _resultList;
+      }
     });
   }
 
-  getFilesFromAssets() async {
+  void getFilesFromAssets(BuildContext context) {
+    // late List<File> listFilesFromAssets = [];
+
     _images.forEach((imageAsset) async {
-      final filePath =
-          await FlutterAbsolutePath.getAbsolutePath(imageAsset.identifier);
+      // String filePath =
+      await FlutterAbsolutePath.getAbsolutePath(imageAsset.identifier)
+          .then((value) async {
+        File tempFile = File(value);
+        if (tempFile.existsSync()) {
+          // listFilesFromAssets.add(tempFile);
 
-      File tempFile = File(filePath);
-      if (tempFile.existsSync()) {
-        _imagesFile.add(tempFile);
-      }
+          String fileName = basename(tempFile.path);
+
+          firebase_storage.Reference ref =
+              firebase_storage.FirebaseStorage.instance.ref(fileName);
+
+          try {
+            await ref.putFile(tempFile).then((value) =>
+                value.ref.getDownloadURL().then((url) => imagesURL.add(url)));
+          } on firebase_core.FirebaseException catch (e) {
+            print('ERROR: $e');
+          }
+          if (imagesURL.length == _images.length) {
+            setState(() {
+              uploadData(context);
+            });
+          }
+        }
+      });
     });
   }
 
-  Future uploadImage() async {
-    // _imagesFile = getFilesFromAssets(_images);
+  void uploadData(BuildContext context) {
+    GadgetServices.addGadget(
+        Gadget(
+            price: price,
+            name: nameController.text,
+            city: cityController.text,
+            phone: phoneController.text,
+            // mapURL: mapURLController.text,
+            address: addressController.text,
+            battery: batteryController.text,
+            screen: screenController.text,
+            camera: cameraController.text,
+            chipset: chipsetController.text,
+            chipsetSeries: chipsetSeriesController.text,
+            desc: descController.text,
+            seller: sellerController.text),
+        photos: imagesURL);
 
-    List<String> imagesTemp = [];
+    priceController.text = '';
+    nameController.text = '';
+    cityController.text = '';
+    phoneController.text = '';
+    // mapURLController.text ='';
+    addressController.text = '';
+    batteryController.text = '';
+    screenController.text = '';
+    cameraController.text = '';
+    chipsetController.text = '';
+    chipsetSeriesController.text = '';
+    descController.text = '';
+    sellerController.text = '';
 
-    for (var img in _imagesFile) {
-      String fileName = basename(img.path);
+    Navigator.push(
+        context, MaterialPageRoute(builder: (builder) => HomePage()));
 
-      firebase_storage.Reference ref =
-          firebase_storage.FirebaseStorage.instance.ref(fileName);
+    final snackBar = SnackBar(
+        backgroundColor: Colors.green[400],
+        duration: Duration(milliseconds: 1500),
+        content: Row(
+          children: [
+            Icon(Icons.check_box, color: whiteColor),
+            SizedBox(width: 8),
+            Text('Produk berhasil diupload')
+          ],
+        ));
 
-      // Kita ikuti aja kodingan pak Erico di BWA Flutix (kayak diatas) tapi dengan versi terbaru
-      // sesuai dengan yang di dokumentasi
-
-      /* Kita gatau ini kenapa malah manggil firebase_core, pas kita bikin firebase_storage juga ga error tapi
-      kita ikutin yang di dokumentasi aja */
-
-      try {
-        await ref.putFile(img).then((value) =>
-            value.ref.getDownloadURL().then((url) => imagesTemp.add(url)));
-      } on firebase_core.FirebaseException catch (e) {
-        print('ERROR: $e');
-      }
-    }
-
-    imagesURL = imagesTemp;
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
+
+  // uploadImage({required List<File> listFile}) async {
+  //   // List<String>? listString;
+
+  //   for (var img in listFile) {
+  //     String fileName = basename(img.path);
+
+  //     firebase_storage.Reference ref =
+  //         firebase_storage.FirebaseStorage.instance.ref(fileName);
+
+  //     try {
+  //       await ref.putFile(img).then((value) =>
+  //           value.ref.getDownloadURL().then((url) => imagesURL.add(url)));
+  //     } on firebase_core.FirebaseException catch (e) {
+  //       print('ERROR: $e');
+  //     }
+  //   }
+  //   if (imagesURL.length != 0) {
+  //     setState(() {
+  //       readyToUpload = true;
+  //     });
+  //   }
+  // }
+  //
+
 }
