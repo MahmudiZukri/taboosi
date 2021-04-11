@@ -20,7 +20,7 @@ class _AddPageState extends State<AddPage> {
   final TextEditingController descController = TextEditingController();
   final TextEditingController sellerController = TextEditingController();
 
-  List<File> _imagesFile = [];
+  // List<File> _imagesFile = [];
   List<String> imagesURL = [];
   bool isUploading = false;
   bool readyToUpload = false;

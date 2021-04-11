@@ -20,7 +20,7 @@ class SplashPage extends StatelessWidget {
                 child: Image.asset(
                   //Foto oleh Sound On dari Pexels
                   'assets/splash.png',
-                  height: MediaQuery.of(context).size.height / 2,
+                  height: MediaQuery.of(context).size.height / 2 + 30,
                   fit: BoxFit.cover,
                 )),
             Container(
