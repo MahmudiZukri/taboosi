@@ -265,9 +265,12 @@ class _DetailPageState extends State<DetailPage> {
                             onTap: () {
                               Navigator.push(
                                   context,
-                                  MaterialPageRoute(
-                                      builder: (context) => DetailPhotoPage(
-                                          widget.gadget.photos!)));
+                                  BouncyPageRoute(
+                                      widget: DetailPhotoPage(
+                                          widget.gadget.photos!
+                                              .map((e) => GadgetImage(e))
+                                              .toList(),
+                                          GadgetImage(e))));
                             },
                             child: Image.network(
                               e,
