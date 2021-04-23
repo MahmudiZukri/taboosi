@@ -2,7 +2,7 @@ part of 'shared.dart';
 
 Color turquoiseColor = Color(0xFF00ADB5);
 Color greyColor = Color(0xFF7A7E86);
-Color greyColor2 = Color(0xFF393E46);
+Color greyColor2 = Color(0xFF222831);
 Color backgroundColor = Colors.white;
 Color whiteColor = Colors.white;
 Color blackColor = Colors.black;

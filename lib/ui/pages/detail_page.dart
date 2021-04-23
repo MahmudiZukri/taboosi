@@ -15,10 +15,9 @@ class _DetailPageState extends State<DetailPage> {
     Future<void> _confirmCall() async {
       return showDialog<void>(
         context: context,
-        barrierDismissible: false, // user must tap button!
+        barrierDismissible: false, // user must tap button
         builder: (BuildContext context) {
           return AlertDialog(
-            //TODO: NTAGUR FONT SIZE KEEMPAT INI + NAMBAH HUBUNGI LEWAT WA
             title: Text('Konfirmasi', style: turquoiseTextFont),
             content: Text('Apakah Anda ingin menghubungi penjual?',
                 style: greyTextFont.copyWith(fontSize: 14)),
@@ -84,30 +83,6 @@ class _DetailPageState extends State<DetailPage> {
                           Navigator.pop(context);
                         },
                         child: Image.asset('assets/btn_back.png', height: 40)),
-                    // GestureDetector(
-                    //     onTap: () {
-                    //       setState(() {
-                    //         widget.gadget.isLoved = !widget.gadget.isLoved;
-
-                    //         if (widget.gadget.isLoved == false) {
-                    //           inLovePage.removeWhere(
-                    //               (item) => item == widget.gadget.gadgetID);
-                    //         } else {
-                    //           inLovePage.contains(widget.gadget.gadgetID)
-                    //               ? print('DAH ADA')
-                    //               : inLovePage.add(widget.gadget.gadgetID);
-                    //         }
-                    //       });
-                    //       //TODO: SAVE DISINI
-                    //       LovePageServices.saveLove(inLovePage);
-
-                    //       print("YOLOOOOOO $inLovePage");
-                    //     },
-                    //     child: Image.asset(
-                    //         widget.gadget.isLoved
-                    //             ? 'assets/btn_wishlist_loved.png'
-                    //             : 'assets/btn_wishlist.png',
-                    //         height: 40))
                   ],
                 ),
               ),
@@ -136,9 +111,13 @@ class _DetailPageState extends State<DetailPage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             //NOTE: GADGET NAME
-                            Text(widget.gadget.name,
-                                style: blackTextFont.copyWith(fontSize: 22),
-                                maxLines: 2),
+                            Container(
+                              width:
+                                  MediaQuery.of(context).size.width - 2 * edge,
+                              child: Text(widget.gadget.name,
+                                  style: blackTextFont.copyWith(fontSize: 22),
+                                  maxLines: 2),
+                            ),
                             Row(
                               children: [
                                 Text('Rp ',
@@ -155,16 +134,6 @@ class _DetailPageState extends State<DetailPage> {
                             ),
                           ],
                         ),
-                        // Row(
-                        //     children: List.generate(
-                        //         5,
-                        //         (index) => Image.asset(
-                        //               'assets/star.png',
-                        //               height: 20,
-                        //               color: index < widget.gadget.rating
-                        //                   ? Color(0xFFFF9376)
-                        //                   : Color(0xFF989BA1),
-                        //             )))
                       ],
                     ),
                     SizedBox(height: 30),

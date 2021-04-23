@@ -20,13 +20,13 @@ class _AddPageState extends State<AddPage> {
   final TextEditingController descController = TextEditingController();
   final TextEditingController sellerController = TextEditingController();
 
-  // List<File> _imagesFile = [];
   List<String> imagesURL = [];
   bool isUploading = false;
   bool readyToUpload = false;
   final picker = MultiImagePicker();
   List<Asset> _images = [];
   late int price;
+  late String phone;
 
   @override
   void dispose() {
@@ -82,7 +82,7 @@ class _AddPageState extends State<AddPage> {
                   TextfieldCard(
                     controller: nameController,
                     width: MediaQuery.of(context).size.width - 2 * edge,
-                    labelText: 'Nama Produk RAM/Memori Internal',
+                    labelText: 'Nama Produk RAM / Memori Internal',
                     hintText: 'e.g. Xiaomi Mi 11 6/64',
                   ),
                   TextfieldCard(
@@ -149,7 +149,7 @@ class _AddPageState extends State<AddPage> {
                     controller: phoneController,
                     width: MediaQuery.of(context).size.width - 2 * edge,
                     labelText: 'No. Handphone / WhatsApp',
-                    hintText: 'e.g. +62821********',
+                    hintText: 'e.g. 62821********',
                     inputNumber: true,
                   ),
                   Text(
@@ -173,9 +173,7 @@ class _AddPageState extends State<AddPage> {
                     'Upload Foto Produk',
                     style: greyTextFont,
                   ),
-                  Text('Note: Foto yang pertama akan menjadi thumbnail',
-                      style: greyTextFont.copyWith(
-                          fontSize: 10, color: Colors.grey[350])),
+
                   SizedBox(height: 10),
                   //NOTE: UPLOAD FOTO
                   Container(
@@ -206,38 +204,42 @@ class _AddPageState extends State<AddPage> {
                             }) +
                             [
                               Container(
-                                margin: EdgeInsets.all(5),
-                                decoration: BoxDecoration(
-                                    border:
-                                        Border.all(color: Colors.grey[400]!),
-                                    borderRadius: BorderRadius.circular(11)),
-                                child: IconButton(
-                                    icon:
-                                        Icon(Icons.add, color: turquoiseColor),
-                                    onPressed: _images.length < 8
-                                        ? () {
-                                            chooseImage();
-                                          }
-                                        : () {
-                                            final snackBar = SnackBar(
-                                                backgroundColor:
-                                                    Colors.red[400],
-                                                duration: Duration(
-                                                    milliseconds: 1500),
-                                                content: Row(
-                                                  children: [
-                                                    Icon(Icons.dangerous,
-                                                        color: whiteColor),
-                                                    SizedBox(width: 8),
-                                                    Text(
-                                                        'Upload foto produk maksimal 8')
-                                                  ],
-                                                ));
+                                  margin: EdgeInsets.all(5),
+                                  decoration: BoxDecoration(
+                                      border:
+                                          Border.all(color: Colors.grey[400]!),
+                                      borderRadius: BorderRadius.circular(11)),
+                                  child: IconButton(
+                                      icon: Icon(Icons.add,
+                                          color: turquoiseColor),
+                                      onPressed: _images.length < 8
+                                          ? () {
+                                              chooseImage();
+                                            }
+                                          : () {
+                                              final snackBar = SnackBar(
+                                                  backgroundColor:
+                                                      Colors.red[400],
+                                                  duration: Duration(
+                                                      milliseconds: 1500),
+                                                  content: Row(
+                                                    children: [
+                                                      Icon(Icons.dangerous,
+                                                          color: whiteColor),
+                                                      SizedBox(width: 8),
+                                                      Text(
+                                                          'Upload foto produk maksimal 8')
+                                                    ],
+                                                  ));
 
-                                            ScaffoldMessenger.of(context)
-                                                .showSnackBar(snackBar);
-                                          }),
-                              )
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(snackBar);
+                                              Future.delayed(
+                                                  Duration(milliseconds: 1500),
+                                                  () {
+                                                chooseImage();
+                                              });
+                                            }))
                             ],
                       )),
 
@@ -332,6 +334,7 @@ class _AddPageState extends State<AddPage> {
                                     }
 
                                     price = int.parse(temp);
+                                    phone = "+${phoneController.text}";
                                   }
                                 },
                                 child:
@@ -370,16 +373,11 @@ class _AddPageState extends State<AddPage> {
   }
 
   void getFilesFromAssets(BuildContext context) {
-    // late List<File> listFilesFromAssets = [];
-
     _images.forEach((imageAsset) async {
-      // String filePath =
       await FlutterAbsolutePath.getAbsolutePath(imageAsset.identifier)
           .then((value) async {
         File tempFile = File(value);
         if (tempFile.existsSync()) {
-          // listFilesFromAssets.add(tempFile);
-
           String fileName = basename(tempFile.path);
 
           firebase_storage.Reference ref =
@@ -407,7 +405,7 @@ class _AddPageState extends State<AddPage> {
             price: price,
             name: nameController.text,
             city: cityController.text,
-            phone: phoneController.text,
+            phone: phone,
             // mapURL: mapURLController.text,
             address: addressController.text,
             battery: batteryController.text,
@@ -449,29 +447,4 @@ class _AddPageState extends State<AddPage> {
 
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
-
-  // uploadImage({required List<File> listFile}) async {
-  //   // List<String>? listString;
-
-  //   for (var img in listFile) {
-  //     String fileName = basename(img.path);
-
-  //     firebase_storage.Reference ref =
-  //         firebase_storage.FirebaseStorage.instance.ref(fileName);
-
-  //     try {
-  //       await ref.putFile(img).then((value) =>
-  //           value.ref.getDownloadURL().then((url) => imagesURL.add(url)));
-  //     } on firebase_core.FirebaseException catch (e) {
-  //       print('ERROR: $e');
-  //     }
-  //   }
-  //   if (imagesURL.length != 0) {
-  //     setState(() {
-  //       readyToUpload = true;
-  //     });
-  //   }
-  // }
-  //
-
 }

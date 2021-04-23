@@ -6,7 +6,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  // int selectedItem;
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -33,7 +33,7 @@ class _HomePageState extends State<HomePage> {
                           style: blackTextFont.copyWith(fontSize: 28)),
                       SizedBox(height: 2),
                       Text(
-                          'Aplikasi ringan yang dapat membantu Anda menjual dan membeli smartphone second',
+                          'Aplikasi yang dapat membantu Anda menjual dan membeli smartphone second',
                           style: greyTextFont.copyWith(fontSize: 16)),
                       SizedBox(height: 30),
                       //NOTE: POPULAR CITIES

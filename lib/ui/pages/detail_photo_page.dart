@@ -12,9 +12,6 @@ class DetailPhotoPage extends StatefulWidget {
 }
 
 class _DetailPhotoPageState extends State<DetailPhotoPage> {
-  // bool isSelected = false;
-  // int index = 0;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
