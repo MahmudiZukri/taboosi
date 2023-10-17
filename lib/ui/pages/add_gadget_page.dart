@@ -376,7 +376,7 @@ class _AddPageState extends State<AddPage> {
     _images.forEach((imageAsset) async {
       await FlutterAbsolutePath.getAbsolutePath(imageAsset.identifier)
           .then((value) async {
-        File tempFile = File(value);
+        File tempFile = File(value!);
         if (tempFile.existsSync()) {
           String fileName = basename(tempFile.path);
 

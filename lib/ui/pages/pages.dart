@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:flutter/services.dart';
-import 'package:flutter_absolute_path/flutter_absolute_path.dart';
 import 'package:intl/intl.dart';
 import 'package:taboosi/services/services.dart';
 import 'package:taboosi/shared/shared.dart';
