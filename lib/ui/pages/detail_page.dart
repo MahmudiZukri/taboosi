@@ -313,7 +313,7 @@ class _DetailPageState extends State<DetailPage> {
                           child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
                                 elevation: 0,
-                                primary: turquoiseColor,
+                                foregroundColor: turquoiseColor,
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(20)),
                               ),

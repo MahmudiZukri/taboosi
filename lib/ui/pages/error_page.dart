@@ -27,7 +27,7 @@ class ErrorPage extends StatelessWidget {
                       : MediaQuery.of(context).size.width / 2,
                   child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        primary: turquoiseColor,
+                        foregroundColor: turquoiseColor,
                         elevation: 0,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20)),

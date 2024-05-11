@@ -264,7 +264,7 @@ class _AddPageState extends State<AddPage> {
                               )
                             : ElevatedButton(
                                 style: ElevatedButton.styleFrom(
-                                  primary: turquoiseColor,
+                                  foregroundColor: turquoiseColor,
                                   elevation: 0,
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(20)),
@@ -353,14 +353,18 @@ class _AddPageState extends State<AddPage> {
 
     try {
       _resultList = await MultiImagePicker.pickImages(
+        androidOptions: AndroidOptions(
           maxImages: 8,
-          enableCamera: true,
-          selectedAssets: _images,
-          materialOptions: MaterialOptions(
-              actionBarTitle: "Pilih Foto",
-              actionBarColor: '#00ADB5',
-              statusBarColor: '#393E46',
-              selectCircleStrokeColor: '#00ADB5'));
+          actionBarTitle: 'Pilih foto',
+        ),
+        // enableCamera: true,
+        selectedAssets: _images,
+        // materialOptions: MaterialOptions(
+        //     actionBarTitle: "Pilih Foto",
+        //     actionBarColor: '#00ADB5',
+        //     statusBarColor: '#393E46',
+        //     selectCircleStrokeColor: '#00ADB5'),
+      );
     } on Exception catch (e) {
       print('EXCEPTION: $e');
     }

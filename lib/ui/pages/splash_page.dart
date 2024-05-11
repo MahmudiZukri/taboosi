@@ -3,8 +3,9 @@ part of 'pages.dart';
 class SplashPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () {
+    return PopScope(
+      canPop: true,
+      onPopInvoked: (didPop) {
         exit(0);
       },
       child: Scaffold(
@@ -49,7 +50,7 @@ class SplashPage extends StatelessWidget {
                                 : MediaQuery.of(context).size.width / 2,
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            primary: turquoiseColor,
+                            foregroundColor: turquoiseColor,
                             elevation: 0,
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(20)),
